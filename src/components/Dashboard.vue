@@ -366,14 +366,14 @@ export default {
       ledger: null,
       connectedLedgerType: 'live',
       initialServers: {
-        live: [
-          'rippled-dev.xrpayments.co',
-          's1.ripple.com',
-          's2.ripple.com'
-        ],
-        test: [
-          's.altnet.rippletest.net:51233'
-        ]
+        live: (
+          process.env.VUE_APP_RIPPLED_LIVE_NODE_URLS &&
+          process.env.VUE_APP_RIPPLED_LIVE_NODE_URLS.split(',')
+        ) || [],
+        test: (
+          process.env.VUE_APP_RIPPLED_TEST_NODE_URLS &&
+          process.env.VUE_APP_RIPPLED_TEST_NODE_URLS.split(',')
+        ) || []
       },
       connectionPool: null,
       view: 'c',
@@ -388,29 +388,17 @@ export default {
       servers: [],
       accounts: [],
       connections: [],
-      addHostname: 'rippled.xrptipbot.com',
+      addHostname: process.env.VUE_APP_RIPPLED_HOSTNAME_PLACEHOLDER,
       newAccount: '',
       txSecretFocussed: false,
       ranking: {
         data: {},
         interval: null
       },
-      interestingAccounts: [
-        'rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq',
-        'rETx8GBiH6fxhTcfHM9fGeyShqxozyD3xe',
-        'rH3uSRUJYoJhK4kL9x1mzUhDimKE2n3oT6',
-        'rLEsXccBGNR3UPuPu2hUXPjziKC3qKSBun',
-        'rENDnFwR3CPvrsPjD9XXeqVoXeVt2CpPWX',
-        'rhPGyJfM8bGjfNCiXLL7WRU8VZ5Cw4kHVe',
-        'rhKgFxe7Mp38yeJzvwoNLm46RxMdXotTn6',
-        'rDsbeomae4FXwgQTJp9Rs64Qg9vDiTCdBv',
-        'rPdvC6ccq8hCdPKSPJkPmyZ4Mi1oG2FFkT',
-        'rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh',
-        'rPVMhWBsfF9iMXYj3aAzJVkPDTFNSyWdKy',
-        'rCoinaUERUrXb1aA7dJu8qRcmvPNiKS3d',
-        'r9KG7Du7aFmABzMvDnwuvPaEoMu4Eurwok',
-        'rQHYSEyxX3GKK3F6sXRvdd2NHhUqaxtC6F'
-      ],
+      interestingAccounts: (
+        process.env.VUE_APP_RIPPLED_INTERESTING_ACCOUNTS &&
+        process.env.VUE_APP_RIPPLED_INTERESTING_ACCOUNTS.split(',')
+      ) || [],
       storeTxAmount: 2500,
       showOnlyPayments: false,
       txCount: 0,
